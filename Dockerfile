@@ -12,7 +12,7 @@ RUN npm install --legacy-peer-deps --prefer-offline
 # 애플리케이션 소스 복사
 COPY . .
 
-# Next.js 빌드 실행
+# Next.js 빌드 실행2
 RUN npm run build
 
 # 2단계: 실행 환경
