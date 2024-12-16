@@ -18,20 +18,26 @@ jobs:
       - name: Set up AWS CLI
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          aws-access-key-id: ${{ secrets.GIT_AWS_ID }}  # GitHub Secrets에서 AWS Access Key ID 가져오기
-          aws-secret-access-key: ${{ secrets.GIT_AWS_KEY }}  # GitHub Secrets에서 AWS Secret Access Key 가져오기
-          aws-region: ap-northeast-2  # 한국 리전
+          aws-access-key-id: ${{ secrets.GIT_AWS_ID }}
+          aws-secret-access-key: ${{ secrets.GIT_AWS_KEY }}
+          aws-region: ap-northeast-2
 
       # 3. ECR 로그인
       - name: Log in to AWS ECR
         uses: aws-actions/amazon-ecr-login@v1
 
-      # 4. Docker 이미지 빌드
+      # 4. .env 파일 생성 (git_env Secret 값으로)
+      - name: Create .env file
+        run: |
+          echo "${{ secrets.git_env }}" > .env
+
+      # 5. Docker 이미지 빌드
       - name: Build Docker image
         run: |
-          docker build -t 650251707440.dkr.ecr.ap-northeast-2.amazonaws.com/aws-front:latest .
+          docker build --build-arg NEXT_PUBLIC_API_URL="${{ secrets.NEXT_PUBLIC_API_URL }}" \
+                       -t 650251707440.dkr.ecr.ap-northeast-2.amazonaws.com/aws-front:latest .
 
-      # 5. Docker 이미지 ECR에 푸시
+      # 6. Docker 이미지 ECR에 푸시
       - name: Push Docker image to ECR
         run: |
           docker push 650251707440.dkr.ecr.ap-northeast-2.amazonaws.com/aws-front:latest
