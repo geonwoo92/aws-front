@@ -1,42 +1,37 @@
-name: Deploy to AWS ECR
+name: Build and Push Docker image to AWS ECR
 
 on:
   push:
     branches:
-      - main  # main 브랜치에 푸시될 때 자동 실행
+      - main
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      # 코드 체크아웃
+      # 1. 체크아웃 코드
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # AWS CLI 자격 증명 설정
+      # 2. AWS 자격 증명 설정
       - name: Set up AWS CLI
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.GIT_AWS_ID }}  # GitHub Secrets에서 AWS Access Key ID 가져오기
           aws-secret-access-key: ${{ secrets.GIT_AWS_KEY }}  # GitHub Secrets에서 AWS Secret Access Key 가져오기
-          aws-region: ap-northeast-2  # AWS 리전을 한국 리전으로 설정
+          aws-region: ap-northeast-2  # 한국 리전
 
-      # AWS ECR에 로그인
+      # 3. ECR 로그인
       - name: Log in to AWS ECR
         uses: aws-actions/amazon-ecr-login@v1
 
-      # ECR에서 Docker 이미지 가져오기 (이미지 풀)
-      - name: Pull Docker image from ECR
-        run: |
-          docker pull ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.ap-northeast-2.amazonaws.com/my-repository:latest
-
-      # Docker 이미지 빌드
+      # 4. Docker 이미지 빌드
       - name: Build Docker image
         run: |
-          docker build -t ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.ap-northeast-2.amazonaws.com/my-repository:latest .
+          docker build -t 650251707440.dkr.ecr.ap-northeast-2.amazonaws.com/aws-front:latest .
 
-      # Docker 이미지 ECR에 푸시
+      # 5. Docker 이미지 ECR에 푸시
       - name: Push Docker image to ECR
         run: |
-          docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.ap-northeast-2.amazonaws.com/my-repository:latest
+          docker push 650251707440.dkr.ecr.ap-northeast-2.amazonaws.com/aws-front:latest
