@@ -6,7 +6,7 @@ WORKDIR /app
 # package.json과 package-lock.json을 먼저 복사
 COPY package*.json ./
 
-# 종속성 설치 (가능한 한 빨리, 캐시를 활용)
+# 종속성 설치
 RUN npm install --legacy-peer-deps --prefer-offline
 
 # 애플리케이션 소스 복사
@@ -24,7 +24,9 @@ WORKDIR /app
 COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/package*.json ./  # package.json, package-lock.json 복사
 COPY --from=builder /app/node_modules ./node_modules  # node_modules 복사
-COPY --from=builder /app/public ./public  # public 폴더 복사
+
+# public 폴더가 존재할 경우에만 복사
+COPY --from=builder /app/public ./public  # public 폴더 복사 (필요 없다면 삭제 가능)
 
 # Next.js 프로덕션 서버 실행
 EXPOSE 3000
