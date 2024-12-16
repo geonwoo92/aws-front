@@ -27,6 +27,7 @@ WORKDIR /app
 COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package.json ./package.json
+COPY --from=builder /app/public ./public  # public 폴더 복사 (필요한 경우)
 
 # 3000 포트를 외부에 개방
 EXPOSE 3000
