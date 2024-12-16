@@ -3,7 +3,6 @@ FROM node:18 AS builder
 
 WORKDIR /app
 
-# package.json과 package-lock.json 먼저 복사하여 종속성 설치 (캐시 활용)
 COPY package*.json ./
 
 # 종속성 설치
