@@ -4,7 +4,7 @@ FROM node:18 AS builder
 # 앱 디렉토리 설정
 WORKDIR /app
 
-# package.json과 package-lock.json 복사
+# package.json과 package-lock.json 복사.
 COPY package.json package-lock.json ./
 
 # next-router 삭제
