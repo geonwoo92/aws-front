@@ -4,7 +4,7 @@ FROM node:18 AS builder
 # 앱 디렉토리 설정
 WORKDIR /app
 
-# package.json과 package-lock.json만 먼저 복사하여 의존성 캐시 최적화
+# package.json과 package-lock.json만 먼저 복사하여 의존성 캐시 최적
 COPY package.json package-lock.json ./
 
 # 의존성 설치
