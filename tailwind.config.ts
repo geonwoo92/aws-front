@@ -1,6 +1,5 @@
-import type { Config } from "tailwindcss";
-
-const config: Config = {
+/** @type {import('tailwindcss').Config} */
+const config = {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -9,14 +8,11 @@ const config: Config = {
   theme: {
     extend: {
       backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
-          "bg_img": "url('https://www.google.com/url?sa=i&url=https%3A%2F%2Fkor.pngtree.com%2Ffreebackground%2Fstudents-and-readers-gathered-in-a-library-enjoying-peaceful-space-dedicated-to-learning-study_15963740.html&psig=AOvVaw01YwsQ20nTKpRq8ijLvpzq&ust=1734488599114000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCOjCjNzfrYoDFQAAAAAdAAAAABAJ",
-
+        "bg_img": "url('https://dnvefa72aowie.cloudfront.net/origin/smb/201908/1CA8A52BB2211C0E9CE0D767BEB7780C284AD9EB18CCCE5AF3B46B47FE7759FA.jpg?q=95&s=1440x1440&t=inside')",
       },
     },
   },
   plugins: [],
 };
-export default config;
+
+module.exports = config;
