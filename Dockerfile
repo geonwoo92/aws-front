@@ -7,10 +7,8 @@ WORKDIR /app
 # package.json과 package-lock.json만 먼저 복사하여 의존성 캐시 최적화
 COPY package.json package-lock.json ./
 
-# 의존성 설치 (next-router 삭제와 next 설치)
-RUN npm uninstall next-router && \
-    npm install next && \
-    npm install --legacy-peer-deps
+# 의존성 설치
+RUN npm install --legacy-peer-deps
 
 # 앱 파일 복사
 COPY . .
@@ -21,15 +19,14 @@ RUN npm run build
 # Stage 2: 실행 환경
 FROM node:18-slim
 
-# 실행 환경에서 필요한 파일만 복사
 WORKDIR /app
 
+# 빌드된 결과물만 복사
 COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package.json ./package.json
-COPY --from=builder /app/public ./public  # public 폴더 복사 (필요한 경우)
+COPY --from=builder /app/public ./public
 
-# 3000 포트를 외부에 개방
 EXPOSE 3000
 
 # Next.js 앱 실행
