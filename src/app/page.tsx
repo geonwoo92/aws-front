@@ -12,9 +12,9 @@ const Home:NextPage=()=> {
   return (
     <div>
       <div className="w-screen h-screen justify-center content-center bg-gray-950">
-        <div className="text-center content-center bg-center bg-bg_img bg-cover h-[90%]">
+        <div className="text-center content-center bg-center bg-bg_img bg-cover h-[100%]">
 
-          <span className="text-gray-300 text-6xl font-bold font-['Inter'] ">Study Log<br /></span><br />
+          <span className="text-gray-300 text-7xl font-bold font-['Inter'] ">Study Log<br /></span><br />
           <span className="text-gray-400 text-2xl font-['Inter']">Welcome</span><br />
 
           <div className="mt-[15%]">

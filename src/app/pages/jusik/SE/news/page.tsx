@@ -34,7 +34,7 @@ const NewsPage: React.FC = () => {
 
   return (
     <div style={styles.container}>
-      <h1 style={styles.header}>STOCK NEWS</h1>
+      <h1 style={styles.header}>EDUCATION NEWS</h1>
       <div style={styles.newsContainer}>
         {loading ? (
           <p>Loading news...</p>
